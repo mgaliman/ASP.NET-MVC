@@ -1,0 +1,670 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AdventureWorksOBPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Drzava">
+          <Key>
+            <PropertyRef Name="IDDrzava" />
+          </Key>
+          <Property Name="IDDrzava" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naziv" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Grad">
+          <Key>
+            <PropertyRef Name="IDGrad" />
+          </Key>
+          <Property Name="IDGrad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naziv" Type="nvarchar" MaxLength="50" />
+          <Property Name="DrzavaID" Type="int" />
+        </EntityType>
+        <EntityType Name="Kategorija">
+          <Key>
+            <PropertyRef Name="IDKategorija" />
+          </Key>
+          <Property Name="IDKategorija" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naziv" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Komercijalist">
+          <Key>
+            <PropertyRef Name="IDKomercijalist" />
+          </Key>
+          <Property Name="IDKomercijalist" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ime" Type="nvarchar" MaxLength="50" />
+          <Property Name="Prezime" Type="nvarchar" MaxLength="50" />
+          <Property Name="StalniZaposlenik" Type="bit" />
+        </EntityType>
+        <EntityType Name="KreditnaKartica">
+          <Key>
+            <PropertyRef Name="IDKreditnaKartica" />
+          </Key>
+          <Property Name="IDKreditnaKartica" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tip" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Broj" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="IstekMjesec" Type="tinyint" Nullable="false" />
+          <Property Name="IstekGodina" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kupac">
+          <Key>
+            <PropertyRef Name="IDKupac" />
+          </Key>
+          <Property Name="IDKupac" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ime" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Prezime" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Telefon" Type="nvarchar" MaxLength="25" />
+          <Property Name="GradID" Type="int" />
+        </EntityType>
+        <EntityType Name="Potkategorija">
+          <Key>
+            <PropertyRef Name="IDPotkategorija" />
+          </Key>
+          <Property Name="IDPotkategorija" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KategorijaID" Type="int" Nullable="false" />
+          <Property Name="Naziv" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Proizvod">
+          <Key>
+            <PropertyRef Name="IDProizvod" />
+          </Key>
+          <Property Name="IDProizvod" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naziv" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BrojProizvoda" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="Boja" Type="nvarchar" MaxLength="15" />
+          <Property Name="MinimalnaKolicinaNaSkladistu" Type="smallint" Nullable="false" />
+          <Property Name="CijenaBezPDV" Type="money" Nullable="false" />
+          <Property Name="PotkategorijaID" Type="int" />
+        </EntityType>
+        <EntityType Name="Racun">
+          <Key>
+            <PropertyRef Name="IDRacun" />
+          </Key>
+          <Property Name="IDRacun" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DatumIzdavanja" Type="datetime" Nullable="false" />
+          <Property Name="BrojRacuna" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="KupacID" Type="int" Nullable="false" />
+          <Property Name="KomercijalistID" Type="int" />
+          <Property Name="KreditnaKarticaID" Type="int" />
+          <Property Name="Komentar" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="Stavka">
+          <Key>
+            <PropertyRef Name="IDStavka" />
+          </Key>
+          <Property Name="IDStavka" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RacunID" Type="int" Nullable="false" />
+          <Property Name="Kolicina" Type="smallint" Nullable="false" />
+          <Property Name="ProizvodID" Type="int" Nullable="false" />
+          <Property Name="CijenaPoKomadu" Type="money" Nullable="false" />
+          <Property Name="PopustUPostocima" Type="money" Nullable="false" />
+          <Property Name="UkupnaCijena" Type="numeric" Precision="38" Scale="6" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Grad_Drzava">
+          <End Role="Drzava" Type="Self.Drzava" Multiplicity="0..1" />
+          <End Role="Grad" Type="Self.Grad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drzava">
+              <PropertyRef Name="IDDrzava" />
+            </Principal>
+            <Dependent Role="Grad">
+              <PropertyRef Name="DrzavaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kupac_Grad">
+          <End Role="Grad" Type="Self.Grad" Multiplicity="0..1" />
+          <End Role="Kupac" Type="Self.Kupac" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grad">
+              <PropertyRef Name="IDGrad" />
+            </Principal>
+            <Dependent Role="Kupac">
+              <PropertyRef Name="GradID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Potkategorija_Kategorija">
+          <End Role="Kategorija" Type="Self.Kategorija" Multiplicity="1" />
+          <End Role="Potkategorija" Type="Self.Potkategorija" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategorija">
+              <PropertyRef Name="IDKategorija" />
+            </Principal>
+            <Dependent Role="Potkategorija">
+              <PropertyRef Name="KategorijaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Proizvod_Potkategorija">
+          <End Role="Potkategorija" Type="Self.Potkategorija" Multiplicity="0..1" />
+          <End Role="Proizvod" Type="Self.Proizvod" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Potkategorija">
+              <PropertyRef Name="IDPotkategorija" />
+            </Principal>
+            <Dependent Role="Proizvod">
+              <PropertyRef Name="PotkategorijaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Racun_Komercijalist">
+          <End Role="Komercijalist" Type="Self.Komercijalist" Multiplicity="0..1" />
+          <End Role="Racun" Type="Self.Racun" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Komercijalist">
+              <PropertyRef Name="IDKomercijalist" />
+            </Principal>
+            <Dependent Role="Racun">
+              <PropertyRef Name="KomercijalistID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Racun_KreditnaKartica">
+          <End Role="KreditnaKartica" Type="Self.KreditnaKartica" Multiplicity="0..1" />
+          <End Role="Racun" Type="Self.Racun" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KreditnaKartica">
+              <PropertyRef Name="IDKreditnaKartica" />
+            </Principal>
+            <Dependent Role="Racun">
+              <PropertyRef Name="KreditnaKarticaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Racun_Kupac">
+          <End Role="Kupac" Type="Self.Kupac" Multiplicity="1" />
+          <End Role="Racun" Type="Self.Racun" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kupac">
+              <PropertyRef Name="IDKupac" />
+            </Principal>
+            <Dependent Role="Racun">
+              <PropertyRef Name="KupacID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stavka_Proizvod">
+          <End Role="Proizvod" Type="Self.Proizvod" Multiplicity="1" />
+          <End Role="Stavka" Type="Self.Stavka" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proizvod">
+              <PropertyRef Name="IDProizvod" />
+            </Principal>
+            <Dependent Role="Stavka">
+              <PropertyRef Name="ProizvodID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stavka_Racun">
+          <End Role="Racun" Type="Self.Racun" Multiplicity="1" />
+          <End Role="Stavka" Type="Self.Stavka" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Racun">
+              <PropertyRef Name="IDRacun" />
+            </Principal>
+            <Dependent Role="Stavka">
+              <PropertyRef Name="RacunID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AdventureWorksOBPModelStoreContainer">
+          <EntitySet Name="Drzava" EntityType="Self.Drzava" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Grad" EntityType="Self.Grad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kategorija" EntityType="Self.Kategorija" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Komercijalist" EntityType="Self.Komercijalist" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KreditnaKartica" EntityType="Self.KreditnaKartica" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kupac" EntityType="Self.Kupac" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Potkategorija" EntityType="Self.Potkategorija" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Proizvod" EntityType="Self.Proizvod" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Racun" EntityType="Self.Racun" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stavka" EntityType="Self.Stavka" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Grad_Drzava" Association="Self.FK_Grad_Drzava">
+            <End Role="Drzava" EntitySet="Drzava" />
+            <End Role="Grad" EntitySet="Grad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kupac_Grad" Association="Self.FK_Kupac_Grad">
+            <End Role="Grad" EntitySet="Grad" />
+            <End Role="Kupac" EntitySet="Kupac" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Potkategorija_Kategorija" Association="Self.FK_Potkategorija_Kategorija">
+            <End Role="Kategorija" EntitySet="Kategorija" />
+            <End Role="Potkategorija" EntitySet="Potkategorija" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Proizvod_Potkategorija" Association="Self.FK_Proizvod_Potkategorija">
+            <End Role="Potkategorija" EntitySet="Potkategorija" />
+            <End Role="Proizvod" EntitySet="Proizvod" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Racun_Komercijalist" Association="Self.FK_Racun_Komercijalist">
+            <End Role="Komercijalist" EntitySet="Komercijalist" />
+            <End Role="Racun" EntitySet="Racun" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Racun_KreditnaKartica" Association="Self.FK_Racun_KreditnaKartica">
+            <End Role="KreditnaKartica" EntitySet="KreditnaKartica" />
+            <End Role="Racun" EntitySet="Racun" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Racun_Kupac" Association="Self.FK_Racun_Kupac">
+            <End Role="Kupac" EntitySet="Kupac" />
+            <End Role="Racun" EntitySet="Racun" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stavka_Proizvod" Association="Self.FK_Stavka_Proizvod">
+            <End Role="Proizvod" EntitySet="Proizvod" />
+            <End Role="Stavka" EntitySet="Stavka" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stavka_Racun" Association="Self.FK_Stavka_Racun">
+            <End Role="Racun" EntitySet="Racun" />
+            <End Role="Stavka" EntitySet="Stavka" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AdventureWorksOBPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Drzava">
+          <Key>
+            <PropertyRef Name="IDDrzava" />
+          </Key>
+          <Property Name="IDDrzava" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Grad" Relationship="Self.FK_Grad_Drzava" FromRole="Drzava" ToRole="Grad" />
+        </EntityType>
+        <EntityType Name="Grad">
+          <Key>
+            <PropertyRef Name="IDGrad" />
+          </Key>
+          <Property Name="IDGrad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DrzavaID" Type="Int32" />
+          <NavigationProperty Name="Drzava" Relationship="Self.FK_Grad_Drzava" FromRole="Grad" ToRole="Drzava" />
+          <NavigationProperty Name="Kupac" Relationship="Self.FK_Kupac_Grad" FromRole="Grad" ToRole="Kupac" />
+        </EntityType>
+        <EntityType Name="Kategorija">
+          <Key>
+            <PropertyRef Name="IDKategorija" />
+          </Key>
+          <Property Name="IDKategorija" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Potkategorija" Relationship="Self.FK_Potkategorija_Kategorija" FromRole="Kategorija" ToRole="Potkategorija" />
+        </EntityType>
+        <EntityType Name="Komercijalist">
+          <Key>
+            <PropertyRef Name="IDKomercijalist" />
+          </Key>
+          <Property Name="IDKomercijalist" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Prezime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StalniZaposlenik" Type="Boolean" />
+          <NavigationProperty Name="Racun" Relationship="Self.FK_Racun_Komercijalist" FromRole="Komercijalist" ToRole="Racun" />
+        </EntityType>
+        <EntityType Name="KreditnaKartica">
+          <Key>
+            <PropertyRef Name="IDKreditnaKartica" />
+          </Key>
+          <Property Name="IDKreditnaKartica" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tip" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Broj" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IstekMjesec" Type="Byte" Nullable="false" />
+          <Property Name="IstekGodina" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="Racun" Relationship="Self.FK_Racun_KreditnaKartica" FromRole="KreditnaKartica" ToRole="Racun" />
+        </EntityType>
+        <EntityType Name="Kupac">
+          <Key>
+            <PropertyRef Name="IDKupac" />
+          </Key>
+          <Property Name="IDKupac" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Prezime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Telefon" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="GradID" Type="Int32" />
+          <NavigationProperty Name="Grad" Relationship="Self.FK_Kupac_Grad" FromRole="Kupac" ToRole="Grad" />
+          <NavigationProperty Name="Racun" Relationship="Self.FK_Racun_Kupac" FromRole="Kupac" ToRole="Racun" />
+        </EntityType>
+        <EntityType Name="Potkategorija">
+          <Key>
+            <PropertyRef Name="IDPotkategorija" />
+          </Key>
+          <Property Name="IDPotkategorija" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KategorijaID" Type="Int32" Nullable="false" />
+          <Property Name="Naziv" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Kategorija" Relationship="Self.FK_Potkategorija_Kategorija" FromRole="Potkategorija" ToRole="Kategorija" />
+          <NavigationProperty Name="Proizvod" Relationship="Self.FK_Proizvod_Potkategorija" FromRole="Potkategorija" ToRole="Proizvod" />
+        </EntityType>
+        <EntityType Name="Proizvod">
+          <Key>
+            <PropertyRef Name="IDProizvod" />
+          </Key>
+          <Property Name="IDProizvod" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BrojProizvoda" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Boja" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="MinimalnaKolicinaNaSkladistu" Type="Int16" Nullable="false" />
+          <Property Name="CijenaBezPDV" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="PotkategorijaID" Type="Int32" />
+          <NavigationProperty Name="Potkategorija" Relationship="Self.FK_Proizvod_Potkategorija" FromRole="Proizvod" ToRole="Potkategorija" />
+          <NavigationProperty Name="Stavka" Relationship="Self.FK_Stavka_Proizvod" FromRole="Proizvod" ToRole="Stavka" />
+        </EntityType>
+        <EntityType Name="Racun">
+          <Key>
+            <PropertyRef Name="IDRacun" />
+          </Key>
+          <Property Name="IDRacun" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DatumIzdavanja" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="BrojRacuna" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="KupacID" Type="Int32" Nullable="false" />
+          <Property Name="KomercijalistID" Type="Int32" />
+          <Property Name="KreditnaKarticaID" Type="Int32" />
+          <Property Name="Komentar" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Komercijalist" Relationship="Self.FK_Racun_Komercijalist" FromRole="Racun" ToRole="Komercijalist" />
+          <NavigationProperty Name="KreditnaKartica" Relationship="Self.FK_Racun_KreditnaKartica" FromRole="Racun" ToRole="KreditnaKartica" />
+          <NavigationProperty Name="Kupac" Relationship="Self.FK_Racun_Kupac" FromRole="Racun" ToRole="Kupac" />
+          <NavigationProperty Name="Stavka" Relationship="Self.FK_Stavka_Racun" FromRole="Racun" ToRole="Stavka" />
+        </EntityType>
+        <EntityType Name="Stavka">
+          <Key>
+            <PropertyRef Name="IDStavka" />
+          </Key>
+          <Property Name="IDStavka" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RacunID" Type="Int32" Nullable="false" />
+          <Property Name="Kolicina" Type="Int16" Nullable="false" />
+          <Property Name="ProizvodID" Type="Int32" Nullable="false" />
+          <Property Name="CijenaPoKomadu" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="PopustUPostocima" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="UkupnaCijena" Type="Decimal" Precision="38" Scale="6" Nullable="false" />
+          <NavigationProperty Name="Proizvod" Relationship="Self.FK_Stavka_Proizvod" FromRole="Stavka" ToRole="Proizvod" />
+          <NavigationProperty Name="Racun" Relationship="Self.FK_Stavka_Racun" FromRole="Stavka" ToRole="Racun" />
+        </EntityType>
+        <Association Name="FK_Grad_Drzava">
+          <End Role="Drzava" Type="Self.Drzava" Multiplicity="0..1" />
+          <End Role="Grad" Type="Self.Grad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drzava">
+              <PropertyRef Name="IDDrzava" />
+            </Principal>
+            <Dependent Role="Grad">
+              <PropertyRef Name="DrzavaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kupac_Grad">
+          <End Role="Grad" Type="Self.Grad" Multiplicity="0..1" />
+          <End Role="Kupac" Type="Self.Kupac" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grad">
+              <PropertyRef Name="IDGrad" />
+            </Principal>
+            <Dependent Role="Kupac">
+              <PropertyRef Name="GradID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Potkategorija_Kategorija">
+          <End Role="Kategorija" Type="Self.Kategorija" Multiplicity="1" />
+          <End Role="Potkategorija" Type="Self.Potkategorija" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategorija">
+              <PropertyRef Name="IDKategorija" />
+            </Principal>
+            <Dependent Role="Potkategorija">
+              <PropertyRef Name="KategorijaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Racun_Komercijalist">
+          <End Role="Komercijalist" Type="Self.Komercijalist" Multiplicity="0..1" />
+          <End Role="Racun" Type="Self.Racun" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Komercijalist">
+              <PropertyRef Name="IDKomercijalist" />
+            </Principal>
+            <Dependent Role="Racun">
+              <PropertyRef Name="KomercijalistID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Racun_KreditnaKartica">
+          <End Role="KreditnaKartica" Type="Self.KreditnaKartica" Multiplicity="0..1" />
+          <End Role="Racun" Type="Self.Racun" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KreditnaKartica">
+              <PropertyRef Name="IDKreditnaKartica" />
+            </Principal>
+            <Dependent Role="Racun">
+              <PropertyRef Name="KreditnaKarticaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Racun_Kupac">
+          <End Role="Kupac" Type="Self.Kupac" Multiplicity="1" />
+          <End Role="Racun" Type="Self.Racun" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kupac">
+              <PropertyRef Name="IDKupac" />
+            </Principal>
+            <Dependent Role="Racun">
+              <PropertyRef Name="KupacID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Proizvod_Potkategorija">
+          <End Role="Potkategorija" Type="Self.Potkategorija" Multiplicity="0..1" />
+          <End Role="Proizvod" Type="Self.Proizvod" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Potkategorija">
+              <PropertyRef Name="IDPotkategorija" />
+            </Principal>
+            <Dependent Role="Proizvod">
+              <PropertyRef Name="PotkategorijaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stavka_Proizvod">
+          <End Role="Proizvod" Type="Self.Proizvod" Multiplicity="1" />
+          <End Role="Stavka" Type="Self.Stavka" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proizvod">
+              <PropertyRef Name="IDProizvod" />
+            </Principal>
+            <Dependent Role="Stavka">
+              <PropertyRef Name="ProizvodID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stavka_Racun">
+          <End Role="Racun" Type="Self.Racun" Multiplicity="1" />
+          <End Role="Stavka" Type="Self.Stavka" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Racun">
+              <PropertyRef Name="IDRacun" />
+            </Principal>
+            <Dependent Role="Stavka">
+              <PropertyRef Name="RacunID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AdventureWorksOBPEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Drzava" EntityType="Self.Drzava" />
+          <EntitySet Name="Grad" EntityType="Self.Grad" />
+          <EntitySet Name="Kategorija" EntityType="Self.Kategorija" />
+          <EntitySet Name="Komercijalist" EntityType="Self.Komercijalist" />
+          <EntitySet Name="KreditnaKartica" EntityType="Self.KreditnaKartica" />
+          <EntitySet Name="Kupac" EntityType="Self.Kupac" />
+          <EntitySet Name="Potkategorija" EntityType="Self.Potkategorija" />
+          <EntitySet Name="Proizvod" EntityType="Self.Proizvod" />
+          <EntitySet Name="Racun" EntityType="Self.Racun" />
+          <EntitySet Name="Stavka" EntityType="Self.Stavka" />
+          <AssociationSet Name="FK_Grad_Drzava" Association="Self.FK_Grad_Drzava">
+            <End Role="Drzava" EntitySet="Drzava" />
+            <End Role="Grad" EntitySet="Grad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kupac_Grad" Association="Self.FK_Kupac_Grad">
+            <End Role="Grad" EntitySet="Grad" />
+            <End Role="Kupac" EntitySet="Kupac" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Potkategorija_Kategorija" Association="Self.FK_Potkategorija_Kategorija">
+            <End Role="Kategorija" EntitySet="Kategorija" />
+            <End Role="Potkategorija" EntitySet="Potkategorija" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Racun_Komercijalist" Association="Self.FK_Racun_Komercijalist">
+            <End Role="Komercijalist" EntitySet="Komercijalist" />
+            <End Role="Racun" EntitySet="Racun" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Racun_KreditnaKartica" Association="Self.FK_Racun_KreditnaKartica">
+            <End Role="KreditnaKartica" EntitySet="KreditnaKartica" />
+            <End Role="Racun" EntitySet="Racun" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Racun_Kupac" Association="Self.FK_Racun_Kupac">
+            <End Role="Kupac" EntitySet="Kupac" />
+            <End Role="Racun" EntitySet="Racun" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Proizvod_Potkategorija" Association="Self.FK_Proizvod_Potkategorija">
+            <End Role="Potkategorija" EntitySet="Potkategorija" />
+            <End Role="Proizvod" EntitySet="Proizvod" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stavka_Proizvod" Association="Self.FK_Stavka_Proizvod">
+            <End Role="Proizvod" EntitySet="Proizvod" />
+            <End Role="Stavka" EntitySet="Stavka" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stavka_Racun" Association="Self.FK_Stavka_Racun">
+            <End Role="Racun" EntitySet="Racun" />
+            <End Role="Stavka" EntitySet="Stavka" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AdventureWorksOBPModelStoreContainer" CdmEntityContainer="AdventureWorksOBPEntities">
+          <EntitySetMapping Name="Drzava">
+            <EntityTypeMapping TypeName="AdventureWorksOBPModel.Drzava">
+              <MappingFragment StoreEntitySet="Drzava">
+                <ScalarProperty Name="IDDrzava" ColumnName="IDDrzava" />
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Grad">
+            <EntityTypeMapping TypeName="AdventureWorksOBPModel.Grad">
+              <MappingFragment StoreEntitySet="Grad">
+                <ScalarProperty Name="IDGrad" ColumnName="IDGrad" />
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+                <ScalarProperty Name="DrzavaID" ColumnName="DrzavaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kategorija">
+            <EntityTypeMapping TypeName="AdventureWorksOBPModel.Kategorija">
+              <MappingFragment StoreEntitySet="Kategorija">
+                <ScalarProperty Name="IDKategorija" ColumnName="IDKategorija" />
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Komercijalist">
+            <EntityTypeMapping TypeName="AdventureWorksOBPModel.Komercijalist">
+              <MappingFragment StoreEntitySet="Komercijalist">
+                <ScalarProperty Name="IDKomercijalist" ColumnName="IDKomercijalist" />
+                <ScalarProperty Name="Ime" ColumnName="Ime" />
+                <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+                <ScalarProperty Name="StalniZaposlenik" ColumnName="StalniZaposlenik" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KreditnaKartica">
+            <EntityTypeMapping TypeName="AdventureWorksOBPModel.KreditnaKartica">
+              <MappingFragment StoreEntitySet="KreditnaKartica">
+                <ScalarProperty Name="IDKreditnaKartica" ColumnName="IDKreditnaKartica" />
+                <ScalarProperty Name="Tip" ColumnName="Tip" />
+                <ScalarProperty Name="Broj" ColumnName="Broj" />
+                <ScalarProperty Name="IstekMjesec" ColumnName="IstekMjesec" />
+                <ScalarProperty Name="IstekGodina" ColumnName="IstekGodina" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kupac">
+            <EntityTypeMapping TypeName="AdventureWorksOBPModel.Kupac">
+              <MappingFragment StoreEntitySet="Kupac">
+                <ScalarProperty Name="IDKupac" ColumnName="IDKupac" />
+                <ScalarProperty Name="Ime" ColumnName="Ime" />
+                <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="GradID" ColumnName="GradID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Potkategorija">
+            <EntityTypeMapping TypeName="AdventureWorksOBPModel.Potkategorija">
+              <MappingFragment StoreEntitySet="Potkategorija">
+                <ScalarProperty Name="IDPotkategorija" ColumnName="IDPotkategorija" />
+                <ScalarProperty Name="KategorijaID" ColumnName="KategorijaID" />
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Proizvod">
+            <EntityTypeMapping TypeName="AdventureWorksOBPModel.Proizvod">
+              <MappingFragment StoreEntitySet="Proizvod">
+                <ScalarProperty Name="IDProizvod" ColumnName="IDProizvod" />
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+                <ScalarProperty Name="BrojProizvoda" ColumnName="BrojProizvoda" />
+                <ScalarProperty Name="Boja" ColumnName="Boja" />
+                <ScalarProperty Name="MinimalnaKolicinaNaSkladistu" ColumnName="MinimalnaKolicinaNaSkladistu" />
+                <ScalarProperty Name="CijenaBezPDV" ColumnName="CijenaBezPDV" />
+                <ScalarProperty Name="PotkategorijaID" ColumnName="PotkategorijaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Racun">
+            <EntityTypeMapping TypeName="AdventureWorksOBPModel.Racun">
+              <MappingFragment StoreEntitySet="Racun">
+                <ScalarProperty Name="IDRacun" ColumnName="IDRacun" />
+                <ScalarProperty Name="DatumIzdavanja" ColumnName="DatumIzdavanja" />
+                <ScalarProperty Name="BrojRacuna" ColumnName="BrojRacuna" />
+                <ScalarProperty Name="KupacID" ColumnName="KupacID" />
+                <ScalarProperty Name="KomercijalistID" ColumnName="KomercijalistID" />
+                <ScalarProperty Name="KreditnaKarticaID" ColumnName="KreditnaKarticaID" />
+                <ScalarProperty Name="Komentar" ColumnName="Komentar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stavka">
+            <EntityTypeMapping TypeName="AdventureWorksOBPModel.Stavka">
+              <MappingFragment StoreEntitySet="Stavka">
+                <ScalarProperty Name="IDStavka" ColumnName="IDStavka" />
+                <ScalarProperty Name="RacunID" ColumnName="RacunID" />
+                <ScalarProperty Name="Kolicina" ColumnName="Kolicina" />
+                <ScalarProperty Name="ProizvodID" ColumnName="ProizvodID" />
+                <ScalarProperty Name="CijenaPoKomadu" ColumnName="CijenaPoKomadu" />
+                <ScalarProperty Name="PopustUPostocima" ColumnName="PopustUPostocima" />
+                <ScalarProperty Name="UkupnaCijena" ColumnName="UkupnaCijena" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

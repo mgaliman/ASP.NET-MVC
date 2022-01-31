@@ -1,0 +1,26 @@
+﻿@model MyProject.Views.ViewModels.CategoryAndSubcategoryDataViewModel
+@{
+    ViewBag.Title = "NewCategory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>New Category</h2>
+
+@using (Html.BeginForm("Create", "Categories"))
+{
+    <div style="margin-left:30%;">
+        <div class="form-group">
+            <label>Naziv</label>
+            @Html.TextBoxFor(m => m.Kategorija.Naziv, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Kategorija.Naziv)
+        </div>
+        @Html.ValidationSummary(true, "Unesite tražene podatke!")
+        @Html.HiddenFor(m => m.Kategorija.Naziv)
+        @Html.AntiForgeryToken()
+        <a class="btn btn-danger" onclick="history.go(-1); return false;" href="#">&lt; Odustani</a>
+        <button type="submit" class="btn btn-primary" style="margin-left:22%;">Spremi</button>
+    </div>
+}
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval");
+}

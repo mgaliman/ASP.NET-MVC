@@ -1,0 +1,86 @@
+﻿@model IEnumerable<MyProject.AdventureWorksOBP.Proizvod>
+
+@{
+    ViewBag.Title = "Products";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Products</h2>
+<a class="btn-primary btn" href="https://localhost:44350/Products/NewProduct">Add new product</a>
+<table id="products" class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Product model</th>
+            <th>Price without PDV</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+</table>
+@section scripts
+    {
+    <script>
+        $(document).ready(function () {
+            var table = $("#products").DataTable(
+                {
+                    "language": {
+                        "lengthMenu": '<br>'+'Show <select>' +
+                            '<option value="10">10</option>' +
+                            '<option value="20">20</option>' +
+                            '<option value="30">30</option>' +
+                            '<option value="40">40</option>' +
+                            '<option value="50">50</option>' +
+                            '</select> products per page'
+                    },
+                    ajax: {
+                        url: "/api/products",
+                        dataSrc: ""
+                    },
+                    columns: [
+                        {
+                            data: "naziv",
+                            render: function (data, type, row) {
+                                return "<a href='products/productInfo/" + row.idProizvod + "'>" + data + "</a>";
+                            }
+                        },
+                        {
+                            data: "brojProizvoda",
+                            render: function (data, type, row) {
+                                return "<a href='products/productInfo/" + row.idProizvod + "'>" + data + "</a>";
+                            }
+                        },
+                        {
+                            data: "cijenaBezPDV",
+                            render: function (data, type, row) {
+                                return "<a href='products/productInfo/" + row.idProizvod + "'>" + data + " kn</a>";
+                            }
+                        },
+                        {
+                            data: "idProizvod",
+                            render: function (data) {
+                                return "<button class='btn-link js-delete' data-proizvod-id=" + data + "> Izbriši</button>";
+                            }
+                        }
+                    ]
+                });
+
+
+            $("#products").on("click", ".js-delete", function () {
+                var button = $(this);
+                bootbox.confirm("Do you want to delete product?", function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/api/products/" + button.attr("data-proizvod-id"),
+                            method: "DELETE",
+                            success: function () {
+                                table.row(button.parents("tr")).remove().draw();
+                            }
+                        });
+
+                    }
+                });
+            });
+        });
+
+    </script>
+}

@@ -1,0 +1,23 @@
+﻿@model MyProject.Views.ViewModels.CustomerDataViewModel
+@{
+    ViewBag.Title = "Customer Info";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Kupac.Ime @Model.Kupac.Prezime</h2>
+<span><a class="btn btn-primary" style="margin-bottom:10px;" href="https://localhost:44350/WebForm/CustomerForm.aspx">Edit customer</a></span>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Id racuna</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var racun in Model.Racuni)
+        {
+            <tr>
+                <td>@Html.ActionLink($"{racun.IDRacun}", "ReceiptInfo", "Customers", new { Id = racun.IDRacun }, null)</td>
+            </tr>
+        }
+    </tbody>
+</table>

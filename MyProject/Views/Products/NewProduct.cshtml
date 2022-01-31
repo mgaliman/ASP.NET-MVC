@@ -1,0 +1,51 @@
+﻿@model MyProject.Views.ViewModels.ProductDataViewModel
+
+@{
+    ViewBag.Title = "NewProduct";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>New Product</h2>
+
+@using (Html.BeginForm("Create", "Products"))
+{
+<div class="form-group">
+    @Html.LabelFor(m => m.Proizvod.Naziv)
+    @Html.TextBoxFor(m => m.Proizvod.Naziv, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.Proizvod.Naziv,"" , new { @class = "text-danger"})
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(m => m.Proizvod.BrojProizvoda)
+    @Html.TextBoxFor(m => m.Proizvod.BrojProizvoda, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.Proizvod.BrojProizvoda, "", new { @class = "text-danger" })
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(m => m.Proizvod.Boja)
+    @Html.TextBoxFor(m => m.Proizvod.Boja, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.Proizvod.Boja, "", new { @class = "text-danger" })
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(m => m.Proizvod.MinimalnaKolicinaNaSkladistu)
+    @Html.TextBoxFor(m => m.Proizvod.MinimalnaKolicinaNaSkladistu, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.Proizvod.MinimalnaKolicinaNaSkladistu, "", new { @class = "text-danger" })
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(m => m.Proizvod.CijenaBezPDV)
+    @Html.TextBoxFor(m => m.Proizvod.CijenaBezPDV, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.Proizvod.CijenaBezPDV, "", new { @class = "text-danger" })
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(m => m.Proizvod.PotkategorijaID)
+    @Html.DropDownListFor(m => m.Proizvod.PotkategorijaID, new SelectList(Model.Potkategorije, "IDPotkategorija", "Naziv"), "Odaberi potkategoriju", new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.Proizvod.PotkategorijaID, "", new { @class = "text-danger" })
+</div>
+
+@Html.HiddenFor(m => m.Proizvod.IDProizvod)
+
+<button class="btn btn-primary" type="submit">Add new product</button>
+}

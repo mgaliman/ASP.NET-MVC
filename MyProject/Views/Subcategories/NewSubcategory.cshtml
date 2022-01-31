@@ -1,0 +1,32 @@
+﻿@model MyProject.Views.ViewModels.CategoryAndSubcategoryDataViewModel
+@{
+    ViewBag.Title = "NewSubcategory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 style="text-align:center;">@Model.Naslov</h2>
+
+@using (Html.BeginForm("Save", "Subcategories"))
+{
+
+    <div style="margin-left:30%;">
+        <div class="form-group">
+            <label>Naziv</label>
+            @Html.TextBoxFor(m => m.Potkategorija.Naziv, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Potkategorija.Naziv)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Potkategorija.KategorijaID)
+            @Html.DropDownListFor(m => m.Potkategorija.KategorijaID, new SelectList(Model.Kategorije, "IDKategorija", "NazivKategorije"), "Odaberite Kategoriju", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Potkategorija.KategorijaID, "", new { @class = "text-danger" })
+        </div>
+        @Html.ValidationSummary(true, "Unesite tražene podatke!")
+        @Html.HiddenFor(m => m.Potkategorija.IDPotkategorija)
+        @Html.AntiForgeryToken()
+        <a class="btn btn-danger" onclick="history.go(-1); return false;" href="#">&lt; Odustani</a>
+        <button type="submit" class="btn btn-primary" style="margin-left:22%;">Spremi</button>
+    </div>
+}
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval");
+}

@@ -1,0 +1,72 @@
+﻿@model MyProject.Views.ViewModels.ReceiptInfoViewModel
+@{
+    ViewBag.Title = "ReceiptInfo " + @Model.IDRacuna;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.IDRacuna</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID stavke</th>
+            <th>Cijena po komadu</th>
+            <th>Količina</th>
+            <th>Ukupna cijena</th>
+            <th>Naziv proizvoda</th>
+            <th>Potkategorija</th>
+            <th>Kategorija</th>
+            <th>Komercijalist</th>
+            <th>Kreditna kartica</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var racunData in Model.Stavke)
+        {
+            <tr>
+                <td>@racunData.IDStavka</td>
+                <td>@racunData.CijenaPoKomadu kn</td>
+                <td>@racunData.Kolicina</td>
+                <td>@racunData.UkupnaCijena kn</td>
+                @foreach (var proizvod in Model.Proizvodi)
+                {
+                    <td>@proizvod.Naziv</td>
+                }
+                @foreach (var potkategorija in Model.Potkategorije)
+                {
+                    <td>@potkategorija.Naziv</td>
+                }
+                @foreach (var kategorija in Model.Kategorije)
+                {
+                    <td>@kategorija.Naziv</td>
+                }
+
+                @{ if (Model.Komercijalisti.Count() > 0)
+                    {
+                        foreach (var komercijalist in Model.Komercijalisti)
+                        {
+                            <td>@komercijalist.Ime @komercijalist.Prezime</td>
+                        }
+                    }
+                    else
+                    {
+                        <td>Nije navedeno</td>
+
+                    }
+                }
+                @{ if (Model.KreditneKartice.Count() > 0)
+                    {
+                        foreach (var kkartica in Model.KreditneKartice)
+                        {
+                            <td>@kkartica.Tip.ToString()</td>
+                        }
+                    }
+                    else
+                    {
+                        <td>Nije navedeno</td>
+}
+                }
+            </tr>
+        }
+    </tbody>
+</table>
