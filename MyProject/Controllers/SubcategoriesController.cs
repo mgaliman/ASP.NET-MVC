@@ -26,14 +26,36 @@ namespace MyProject.Controllers
             IList<Potkategorija> potkategorije = _context.Potkategorije.ToList();
             return View(potkategorije);
         }
+        public ActionResult Create(Potkategorija potkategorija)
+        {
+            if (!ModelState.IsValid)
+            {
+                CategoryAndSubcategoryDataViewModel categoryAndSubcategoryDataViewMode = new CategoryAndSubcategoryDataViewModel
+                {
+                    Potkategorija = potkategorija
+                };
+                return View("NewSubcategory", categoryAndSubcategoryDataViewMode);
+            }
+            if (potkategorija.IDPotkategorija == 0)
+            {
+                _context.Potkategorije.Add(potkategorija);
+            }
+            else
+            {
+                Potkategorija potkategorijaUBazi = _context.Potkategorije.Single(p => p.IDPotkategorija == potkategorija.IDPotkategorija);
+                potkategorijaUBazi.Naziv = potkategorija.Naziv;
+            }
+            _context.SaveChanges();
 
-        public ActionResult New()
+            return RedirectToAction("index", "Subcategories");
+        }
+        public ActionResult NewSubcategory()
         {
             CategoryAndSubcategoryDataViewModel naslov = new CategoryAndSubcategoryDataViewModel
             {
                 Potkategorija = new Potkategorija(),
                 Kategorije = _context.Kategorije.ToList(),
-                Naslov = "Nova Potkategorija"
+                Naslov = "New subcategory"
             };
 
             return View(naslov);
@@ -46,9 +68,9 @@ namespace MyProject.Controllers
                 {
                     Potkategorija = new Potkategorija(),
                     Kategorije = _context.Kategorije.ToList(),
-                    Naslov = "Uredi potkategoriju"
+                    Naslov = "Edit subcategory"
                 };
-                return View("New", subcategoriesData);
+                return View("New Subcategory", subcategoriesData);
             }
             if (potkategorija.IDPotkategorija == 0)
             {
@@ -75,9 +97,9 @@ namespace MyProject.Controllers
             {
                 Potkategorija = potkategorija,
                 Kategorije = _context.Kategorije.ToList(),
-                Naslov = "Uredi potkategoriju"
+                Naslov = "Edit subcategory"
             };
-            return View("New", subcategoriesData);
+            return View("NewSubcategory", subcategoriesData);
         }
     }
 }

@@ -11,18 +11,18 @@
     <thead>
         <tr>
             <th>Category ID</th>
-            <th>Name</th>            
+            <th>Name</th>         
         </tr>
     </thead>
     <tbody>
         @foreach (var item in @Model)
         {
             <tr>
-                <td width="30%">
+                <td width="40%">
                     @item.IDKategorija
                 </td>
                 <td>
-                    @item.Naziv
+                    <a href="https://localhost:44350/Categories/Edit/@item.IDKategorija"> @item.Naziv</a>
                 </td>
             </tr>
         }

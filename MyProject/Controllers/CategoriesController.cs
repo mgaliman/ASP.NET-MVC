@@ -44,18 +44,17 @@ namespace MyProject.Controllers
             {
                 Kategorija kategorijaUBazi = _context.Kategorije.Single(p => p.IDKategorija == kategorija.IDKategorija);
                 kategorijaUBazi.Naziv = kategorija.Naziv;
-                kategorijaUBazi.Potkategorija = kategorija.Potkategorija;
             }
             _context.SaveChanges();
 
             return RedirectToAction("index", "Categories");
         }
-        public ActionResult New()
+        public ActionResult NewCategory()
         {
             CategoryAndSubcategoryDataViewModel naslov = new CategoryAndSubcategoryDataViewModel
             {
                 Kategorija = new Kategorija(),
-                Naslov = "Nova Kategorija"
+                Naslov = "New Category"
             };
 
             return View(naslov);
@@ -90,7 +89,7 @@ namespace MyProject.Controllers
             CategoryAndSubcategoryDataViewModel categoriesData = new CategoryAndSubcategoryDataViewModel
             {
                 Kategorija = kategorija,
-                Naslov = "Uredi kategoriju"
+                Naslov = "Edit Category"
             };
             return View("NewCategory", categoriesData);
         }

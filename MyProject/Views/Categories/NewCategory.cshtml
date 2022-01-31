@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>New Category</h2>
+<h2>@Model.Naslov</h2>
 
 @using (Html.BeginForm("Create", "Categories"))
 {
@@ -17,8 +17,9 @@
         @Html.ValidationSummary(true, "Unesite tražene podatke!")
         @Html.HiddenFor(m => m.Kategorija.Naziv)
         @Html.AntiForgeryToken()
-        <a class="btn btn-danger" onclick="history.go(-1); return false;" href="#">&lt; Odustani</a>
-        <button type="submit" class="btn btn-primary" style="margin-left:22%;">Spremi</button>
+        <a class="btn btn-danger" onclick="history.go(-1); return false;" href="#">Cancel</a>
+        @Html.HiddenFor(m => m.Kategorija.IDKategorija)
+        <button type="submit" class="btn btn-primary" style="margin-left:22%;">Save</button>
     </div>
 }
 @section scripts{

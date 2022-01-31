@@ -6,7 +6,7 @@
 
 <h2 style="text-align:center;">@Model.Naslov</h2>
 
-@using (Html.BeginForm("Save", "Subcategories"))
+@using (Html.BeginForm("Create", "Subcategories"))
 {
 
     <div style="margin-left:30%;">
@@ -17,14 +17,14 @@
         </div>
         <div class="form-group">
             @Html.LabelFor(m => m.Potkategorija.KategorijaID)
-            @Html.DropDownListFor(m => m.Potkategorija.KategorijaID, new SelectList(Model.Kategorije, "IDKategorija", "NazivKategorije"), "Odaberite Kategoriju", new { @class = "form-control" })
+            @Html.DropDownListFor(m => m.Potkategorija.KategorijaID, new SelectList(Model.Kategorije, "IDKategorija", "Naziv"), "Odaberite Kategoriju", new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.Potkategorija.KategorijaID, "", new { @class = "text-danger" })
         </div>
         @Html.ValidationSummary(true, "Unesite tražene podatke!")
         @Html.HiddenFor(m => m.Potkategorija.IDPotkategorija)
         @Html.AntiForgeryToken()
-        <a class="btn btn-danger" onclick="history.go(-1); return false;" href="#">&lt; Odustani</a>
-        <button type="submit" class="btn btn-primary" style="margin-left:22%;">Spremi</button>
+        <a class="btn btn-danger" onclick="history.go(-1); return false;" href="#">Cancel</a>
+        <button type="submit" class="btn btn-primary" style="margin-left:22%;">Save</button>
     </div>
 }
 @section scripts{
