@@ -44,6 +44,7 @@ namespace MyProject.Controllers
             {
                 Potkategorija potkategorijaUBazi = _context.Potkategorije.Single(p => p.IDPotkategorija == potkategorija.IDPotkategorija);
                 potkategorijaUBazi.Naziv = potkategorija.Naziv;
+                potkategorijaUBazi.KategorijaID = potkategorija.KategorijaID;
             }
             _context.SaveChanges();
 
@@ -60,32 +61,32 @@ namespace MyProject.Controllers
 
             return View(naslov);
         }
-        public ActionResult Save(Potkategorija potkategorija)
-        {
-            if (!ModelState.IsValid)
-            {
-                CategoryAndSubcategoryDataViewModel subcategoriesData = new CategoryAndSubcategoryDataViewModel
-                {
-                    Potkategorija = new Potkategorija(),
-                    Kategorije = _context.Kategorije.ToList(),
-                    Naslov = "Edit subcategory"
-                };
-                return View("New Subcategory", subcategoriesData);
-            }
-            if (potkategorija.IDPotkategorija == 0)
-            {
-                _context.Potkategorije.Add(potkategorija);
-            }
-            else
-            {
-                Potkategorija potkategorijaUBazi = _context.Potkategorije.Single(p => p.IDPotkategorija == potkategorija.IDPotkategorija);
-                potkategorijaUBazi.Naziv = potkategorija.Naziv;
-                potkategorijaUBazi.KategorijaID = potkategorija.KategorijaID;
-            }
-            _context.SaveChanges();
+        //public ActionResult Save(Potkategorija potkategorija)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        CategoryAndSubcategoryDataViewModel subcategoriesData = new CategoryAndSubcategoryDataViewModel
+        //        {
+        //            Potkategorija = new Potkategorija(),
+        //            Kategorije = _context.Kategorije.ToList(),
+        //            Naslov = "Edit subcategory"
+        //        };
+        //        return View("New Subcategory", subcategoriesData);
+        //    }
+        //    if (potkategorija.IDPotkategorija == 0)
+        //    {
+        //        _context.Potkategorije.Add(potkategorija);
+        //    }
+        //    else
+        //    {
+        //        Potkategorija potkategorijaUBazi = _context.Potkategorije.Single(p => p.IDPotkategorija == potkategorija.IDPotkategorija);
+        //        potkategorijaUBazi.Naziv = potkategorija.Naziv;
+        //        potkategorijaUBazi.KategorijaID = potkategorija.KategorijaID;
+        //    }
+        //    _context.SaveChanges();
 
-            return RedirectToAction("index", "products");
-        }
+        //    return RedirectToAction("index", "products");
+        //}
         public ActionResult Edit(int? id)
         {
             if (!id.HasValue)

@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="AdventureWorksOBPModelStoreContainer" CdmEntityContainer="AdventureWorksOBPEntities">
+    <EntitySetMapping Name="Drzava">
+      <EntityTypeMapping TypeName="AdventureWorksOBPModel.Drzava">
+        <MappingFragment StoreEntitySet="Drzava">
+          <ScalarProperty Name="IDDrzava" ColumnName="IDDrzava" />
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Grad">
+      <EntityTypeMapping TypeName="AdventureWorksOBPModel.Grad">
+        <MappingFragment StoreEntitySet="Grad">
+          <ScalarProperty Name="IDGrad" ColumnName="IDGrad" />
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+          <ScalarProperty Name="DrzavaID" ColumnName="DrzavaID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kategorija">
+      <EntityTypeMapping TypeName="AdventureWorksOBPModel.Kategorija">
+        <MappingFragment StoreEntitySet="Kategorija">
+          <ScalarProperty Name="IDKategorija" ColumnName="IDKategorija" />
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Komercijalist">
+      <EntityTypeMapping TypeName="AdventureWorksOBPModel.Komercijalist">
+        <MappingFragment StoreEntitySet="Komercijalist">
+          <ScalarProperty Name="IDKomercijalist" ColumnName="IDKomercijalist" />
+          <ScalarProperty Name="Ime" ColumnName="Ime" />
+          <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+          <ScalarProperty Name="StalniZaposlenik" ColumnName="StalniZaposlenik" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KreditnaKartica">
+      <EntityTypeMapping TypeName="AdventureWorksOBPModel.KreditnaKartica">
+        <MappingFragment StoreEntitySet="KreditnaKartica">
+          <ScalarProperty Name="IDKreditnaKartica" ColumnName="IDKreditnaKartica" />
+          <ScalarProperty Name="Tip" ColumnName="Tip" />
+          <ScalarProperty Name="Broj" ColumnName="Broj" />
+          <ScalarProperty Name="IstekMjesec" ColumnName="IstekMjesec" />
+          <ScalarProperty Name="IstekGodina" ColumnName="IstekGodina" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kupac">
+      <EntityTypeMapping TypeName="AdventureWorksOBPModel.Kupac">
+        <MappingFragment StoreEntitySet="Kupac">
+          <ScalarProperty Name="IDKupac" ColumnName="IDKupac" />
+          <ScalarProperty Name="Ime" ColumnName="Ime" />
+          <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+          <ScalarProperty Name="GradID" ColumnName="GradID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Potkategorija">
+      <EntityTypeMapping TypeName="AdventureWorksOBPModel.Potkategorija">
+        <MappingFragment StoreEntitySet="Potkategorija">
+          <ScalarProperty Name="IDPotkategorija" ColumnName="IDPotkategorija" />
+          <ScalarProperty Name="KategorijaID" ColumnName="KategorijaID" />
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Proizvod">
+      <EntityTypeMapping TypeName="AdventureWorksOBPModel.Proizvod">
+        <MappingFragment StoreEntitySet="Proizvod">
+          <ScalarProperty Name="IDProizvod" ColumnName="IDProizvod" />
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+          <ScalarProperty Name="BrojProizvoda" ColumnName="BrojProizvoda" />
+          <ScalarProperty Name="Boja" ColumnName="Boja" />
+          <ScalarProperty Name="MinimalnaKolicinaNaSkladistu" ColumnName="MinimalnaKolicinaNaSkladistu" />
+          <ScalarProperty Name="CijenaBezPDV" ColumnName="CijenaBezPDV" />
+          <ScalarProperty Name="PotkategorijaID" ColumnName="PotkategorijaID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Racun">
+      <EntityTypeMapping TypeName="AdventureWorksOBPModel.Racun">
+        <MappingFragment StoreEntitySet="Racun">
+          <ScalarProperty Name="IDRacun" ColumnName="IDRacun" />
+          <ScalarProperty Name="DatumIzdavanja" ColumnName="DatumIzdavanja" />
+          <ScalarProperty Name="BrojRacuna" ColumnName="BrojRacuna" />
+          <ScalarProperty Name="KupacID" ColumnName="KupacID" />
+          <ScalarProperty Name="KomercijalistID" ColumnName="KomercijalistID" />
+          <ScalarProperty Name="KreditnaKarticaID" ColumnName="KreditnaKarticaID" />
+          <ScalarProperty Name="Komentar" ColumnName="Komentar" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Stavka">
+      <EntityTypeMapping TypeName="AdventureWorksOBPModel.Stavka">
+        <MappingFragment StoreEntitySet="Stavka">
+          <ScalarProperty Name="IDStavka" ColumnName="IDStavka" />
+          <ScalarProperty Name="RacunID" ColumnName="RacunID" />
+          <ScalarProperty Name="Kolicina" ColumnName="Kolicina" />
+          <ScalarProperty Name="ProizvodID" ColumnName="ProizvodID" />
+          <ScalarProperty Name="CijenaPoKomadu" ColumnName="CijenaPoKomadu" />
+          <ScalarProperty Name="PopustUPostocima" ColumnName="PopustUPostocima" />
+          <ScalarProperty Name="UkupnaCijena" ColumnName="UkupnaCijena" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
