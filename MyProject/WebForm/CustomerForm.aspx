@@ -14,7 +14,7 @@
     </style>
 </head>
 <body>
-    <h1 style="text-align:center;">Uredi kupca</h1>
+    <h1 style="text-align:center;">Edit customer</h1>
     <form id="form1" runat="server">
             <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 
@@ -62,8 +62,8 @@
                     </Triggers>
                 </asp:UpdatePanel>
                 
-                <asp:button id="backButton" CssClass="btn btn-danger" runat="server" text="Odustani" OnClientClick="JavaScript:window.history.back(1);return false;"></asp:button>
-                <asp:Button ID="btnSpremi" CssClass="btn btn-primary btnspremi" runat="server" Text="Spremi promjene" OnClick="btrnSpremi_Click"/>
+                <asp:button id="backButton" CssClass="btn btn-danger" runat="server" text="Cancel" OnClientClick="JavaScript:window.history.back(1);return false;"></asp:button>
+                <asp:Button ID="btnSpremi" CssClass="btn btn-primary btnspremi" runat="server" Text="Save" OnClick="btrnSpremi_Click"/>
             </div>
     </form>
 </body>
