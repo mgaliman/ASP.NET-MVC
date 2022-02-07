@@ -4,24 +4,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@Model.Naslov</h2>
+<h2>New Category</h2>
 
 @using (Html.BeginForm("Create", "Categories"))
 {
-    <div style="margin-left:30%;">
-        <div class="form-group">
-            <label>Naziv</label>
-            @Html.TextBoxFor(m => m.Kategorija.Naziv, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Kategorija.Naziv)
-        </div>
-        @Html.ValidationSummary(true, "Unesite tražene podatke!")
-        @Html.HiddenFor(m => m.Kategorija.Naziv)
-        @Html.AntiForgeryToken()
-        <a class="btn btn-danger" onclick="history.go(-1); return false;" href="#">Cancel</a>
-        @Html.HiddenFor(m => m.Kategorija.IDKategorija)
-        <button type="submit" class="btn btn-primary" style="margin-left:22%;">Save</button>
+
+<div style="margin-left:30%;">
+    <div class="form-group">
+        @Html.LabelFor(k => k.Kategorija.Naziv)
+        @Html.TextBoxFor(k => k.Kategorija.Naziv, new { @class = "form-control" })
+        @Html.ValidationMessageFor(k => k.Kategorija.Naziv, "", new { @class = "text-danger" })
     </div>
-}
-@section scripts{
-    @Scripts.Render("~/bundles/jqueryval");
+    @Html.HiddenFor(k => k.Kategorija.IDKategorija)
+    <button class="btn btn-primary" type="submit">Add new category</button>
+</div>    
 }

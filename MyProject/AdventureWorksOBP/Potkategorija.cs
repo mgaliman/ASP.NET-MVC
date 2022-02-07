@@ -11,7 +11,8 @@ namespace MyProject.AdventureWorksOBP
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Potkategorija
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,8 +23,10 @@ namespace MyProject.AdventureWorksOBP
     
         public int IDPotkategorija { get; set; }
         public int KategorijaID { get; set; }
+        [Required(ErrorMessage = "Naziv je obavezan")]
         public string Naziv { get; set; }
-    
+        [Required(ErrorMessage = "Kategorija je obavezna")]
+        [Display(Name = "Kategorija")]
         public virtual Kategorija Kategorija { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Proizvod> Proizvod { get; set; }
